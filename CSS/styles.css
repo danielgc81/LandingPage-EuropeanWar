@@ -1,0 +1,208 @@
+:root {
+   --color-secundario: #9b1b1b;
+}
+
+* {
+   padding: 0;
+   margin: 0;
+   font-family: "JetBrains Mono", sans-serif;
+   scroll-behavior: smooth;
+}
+
+body {
+   background-color: #222;
+}
+
+/* Estilos del header */
+.header {
+   background-color: #222;
+   position: sticky;
+   top: 0;
+   min-height: 4rem;
+   box-shadow: 0 0 10px #000;
+}
+
+.header__wrapper {
+   min-width: 100%;
+   min-height: 100%;
+   z-index: 10;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+}
+
+.header__img {
+   margin-top: 5px;
+   width: 200px;
+}
+
+.nav__list {
+   list-style: none;
+   display: flex;
+   gap: 2rem;
+}
+
+.nav__link {
+   color: #ccc;
+   text-decoration: none;
+   text-transform: uppercase;
+   padding-bottom: 5px;
+}
+
+.nav__link:hover {
+   color: #fff;
+   border-bottom: 2px solid var(--color-secundario);
+}
+
+.scroll__line {
+   position: sticky;
+   top: 63px;
+   height: 6px;
+   width: 0%;
+   /* El valor del width cambiara mediante JS segun el scroll de la página */
+   background-color: var(--color-secundario);
+}
+
+.main {
+   margin-top: -6px;
+   min-height: 100dvh;
+}
+
+.presentacion__background-img {
+   min-height: 70dvh;
+   background-image: url(../src/img/trincheras.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.presentacion__info {
+   min-height: 100%;
+   max-width: 60%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   row-gap: 2.5rem;
+}
+
+.presentacion__description {
+   color: #ccc;
+   font-size: 1.1rem;
+}
+
+.presentacion__img {
+   width: 300px;
+}
+
+.presentacion__button {
+   padding: 10px 25px;
+   border-radius: 25px;
+   background-color: transparent;
+   color: #ccc;
+   border: 2px solid #ccc;
+   cursor: pointer;
+   transition: all 400ms ease-in;
+}
+
+.presentacion__button:hover {
+   border: 2px solid var(--color-secundario);
+   background-color: var(--color-secundario);
+}
+
+.main__developers {
+   min-height: 60dvh;
+   display: flex;
+   justify-content: center;
+}
+
+.developers__wrapper {
+   max-width: 60%;
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+   align-items: center;
+}
+
+.developers__title {
+   font-size: 4rem;
+   margin-top: 3.5rem;
+   text-transform: uppercase;
+   color: #ccc;
+}
+
+@keyframes show2 {
+   from {
+      opacity: 0;
+      scale: 50%;
+   }
+   to {
+      opacity: 1;
+      scale: 100%;
+   }
+}
+
+.developers__tarjetas {
+   margin-top: 3.5rem;
+   margin-bottom: 4.1rem;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   justify-content: center;
+   column-gap: 7rem;
+   view-timeline-name: --service;
+   view-timeline-axis: block;
+   animation-timeline: --service;
+   animation-name: show2;
+   animation-range: entry 0% cover 40%;
+}
+
+.tarjetas__dani {
+   flex-basis: 40%;
+}
+
+.tarjetas__yago {
+   flex-basis: 45%;
+}
+
+.tarjeta {
+   border-radius: 6px;
+   color: #ccc;
+}
+
+.tarjeta__info-developer {
+   min-width: 85%;
+   padding: 12px 20px;
+   display: flex;
+   flex-direction: column;
+   row-gap: 2rem;
+}
+
+.info-developer__name {
+   text-align: center;
+}
+
+.info-developer__rol {
+   text-align: center;
+}
+
+.info-developer__description {
+   line-height: 1.5;
+   text-align: center;
+}
+
+.tarjeta__container-img {
+   min-width: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 1.5rem;
+}
+
+.tarjeta__foto {
+   width: 12rem;
+   border-radius: 50%;
+}
+
