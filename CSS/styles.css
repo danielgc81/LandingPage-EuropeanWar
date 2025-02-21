@@ -20,6 +20,7 @@ body {
    top: 0;
    min-height: 4rem;
    box-shadow: 0 0 10px #000;
+   z-index: 30;
 }
 
 .header__wrapper {
@@ -60,6 +61,7 @@ body {
    top: 63px;
    height: 6px;
    width: 0%;
+   z-index: 40;
    /* El valor del width cambiara mediante JS segun el scroll de la página */
    background-color: var(--color-secundario);
 }
@@ -104,7 +106,7 @@ body {
    color: #ccc;
    border: 2px solid #ccc;
    cursor: pointer;
-   transition: all 400ms ease-in;
+   transition: all 300ms ease-in;
 }
 
 .presentacion__button:hover {
@@ -152,6 +154,9 @@ body {
    flex-wrap: nowrap;
    justify-content: center;
    column-gap: 7rem;
+}
+
+.tarjeta__foto {
    view-timeline-name: --service;
    view-timeline-axis: block;
    animation-timeline: --service;
@@ -205,4 +210,216 @@ body {
    width: 12rem;
    border-radius: 50%;
 }
+
+.main__description {
+   min-width: 100%;
+   min-height: 60dvh;
+   background-color: #ccc;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.description__wrapper {
+   max-width: 70%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
+.description__info {
+   flex-basis: 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.description__img {
+   width: 600px;
+   height: 300px;
+   view-timeline-name: --service;
+   view-timeline-axis: block;
+   animation-timeline: --service;
+   animation-name: show2;
+   animation-range: entry 0% cover 30%;
+}
+
+.description__title {
+   font-size:3rem;
+}
+
+.description__text {
+   margin-top: 1.2rem;
+   line-height: 1.6;
+}
+
+.description__button {
+   background-color: transparent;
+   border: 2px solid var(--color-secundario);
+   color: var(--color-secundario);
+   border-radius: 25px;
+   padding: 6px 16px;
+   margin-top: 1.5rem;
+   cursor: pointer;
+   transition: all 300ms ease-in;
+}
+
+.description__button:hover {
+   background-color: var(--color-secundario);
+   color: #ccc;
+}
+
+.footer {
+   background-color: #111;
+   min-height: 50dvh;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+}
+
+.footer__wrapper {
+   max-width: 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.footer__enlaces-social {
+   margin-top: 1.5remrem;
+}
+
+.footer__social-list {
+   display: flex;
+   list-style: none;
+   column-gap: 2rem;
+}
+
+.footer__social-option {
+   font-size: 1.8rem;
+   line-height: 3.2rem;
+   opacity: .4;
+   transition: all 300ms ease;
+}
+
+.footer__social-option:hover {
+   opacity: 1;
+}
+
+.icon {
+   color: #fff;
+}
+
+.footer__pegi-img {
+   width: 7rem;
+}
+
+.pegi18 {
+   width: 5.75rem;
+}
+
+.footer__copyright {
+   margin-top: 1rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.footer__text-copyright {
+   max-width: 80%;
+   font-size: 0.8rem;
+   color: #fff;
+   opacity: .5;
+   text-align: center;
+}
+
+.footer__pegi-privacity {
+   margin-top: 2.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   row-gap: 1.5rem;
+}
+
+.footer__privacity-list {
+   display: flex;
+   list-style: none;
+}
+
+.footer__privacity-anchor {
+   text-decoration: none;
+   color: #fff;
+   text-transform: uppercase;
+   font-size: 0.9rem;
+   padding: 15px;
+}
+
+.footer__privacity-option {
+   transition: all 300ms ease-in;
+}
+
+.footer__privacity-option:hover {
+   background-color: #ccc2;
+   border-radius: 6px;
+}
+
+.main__documentacion {
+   min-height: 50dvh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.documentacion__wrapper {
+   max-width: 60%;
+   min-width: 60%;
+   display: flex;
+   flex-direction: column;
+   row-gap: 2.5rem;
+}
+
+.documentacion__title {
+   font-size: 4rem;
+   margin-top: 3.5rem;
+   text-transform: uppercase;
+   color: #ccc;
+   text-align: center;
+}
+
+.documentacion__diagramas {
+   display: flex;
+   text-align: center;
+   justify-content: center;
+   column-gap: 4rem;
+   margin-bottom: 4rem;
+}
+
+.documentacion__diagrama {
+   flex-basis: 40%;
+   display: flex;
+   flex-direction: column;
+   row-gap: 1rem;
+}
+
+.diagrama__title {
+   color: #ccc;
+   font-size: 1.5rem;
+}
+
+.diagrama__img-container {
+   min-height: 10rem;
+}
+
+.diagrama__download-img {
+   color: #ccc;
+   text-decoration: none;
+   font-size: 0.8rem;
+}
+
+.diagrama__download-img:hover {
+   text-decoration: underline;
+}
+
 
