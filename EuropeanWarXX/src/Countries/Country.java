@@ -4,20 +4,22 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import CountryArmy.Tank;
+import CountryArmy.Plane;
+import Factories.PlaneFactory;
 import Factories.TankFactory;
 
 public class Country {
    protected String name;
    protected LinkedList<Tank> tanks;
    protected int soldiers;
-   protected int planes;
+   protected LinkedList<Plane> planes;
    protected long money;
 
-   public Country(String name, long money, int soldiers, int planes) {
+   public Country(String name, long money, int soldiers) {
       this.name = name;
       this.tanks = new LinkedList<>();
       this.soldiers = soldiers;
-      this.planes = planes;
+      this.planes = new LinkedList<>();
       this.money = money;
    }
 
@@ -60,6 +62,47 @@ public class Country {
          }
       } else {
          System.out.println("No tienes suficiente dinero para comprar " + amountTanks + " tanques " + name);
+      }
+   }
+
+   public LinkedList<Plane> getPlanes() {
+      return planes;
+   }
+
+   private String selectModelPlane () {
+      Scanner sc = new Scanner(System.in);
+      ArrayList<String> namePlanes = new ArrayList<>();
+      namePlanes.add("Heinkel He 111");
+      namePlanes.add("Avro Lancaster");
+      namePlanes.add("B24-Liberator");
+      namePlanes.add("Boeing B-17");
+      namePlanes.forEach(System.out::println);
+
+      boolean nameFound;
+      String namePlane;
+      do {
+         System.out.println("Selecciona el modelo de avión: ");
+         namePlane = sc.nextLine();
+         nameFound = false;
+         if (namePlanes.contains(namePlane)) {
+            nameFound = true;
+         } else {
+            System.out.println("Modelo de avión no encontrado");
+         }
+      } while (!nameFound);
+      return namePlane;
+   }
+
+   public void buyPlanes (int amountPlanes) {
+      String name = selectModelPlane();
+      int cost = amountPlanes * PlaneFactory.createPlane(name).getCost();
+      if (this.money > cost) {
+         this.money -= cost;
+         for (int i = 0; i < amountPlanes; i++) {
+            this.planes.add(PlaneFactory.createPlane(name));
+         }
+      } else {
+         System.out.println("No tienes suficiente dinero para comprar " + amountPlanes + " aviones " + name);
       }
    }
 }
