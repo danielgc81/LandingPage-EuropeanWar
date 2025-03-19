@@ -1,13 +1,6 @@
 package GameApp;
-import Countries.Country;
-import CountryArmy.Tank;
+import javax.swing.JPanel;
 
-public class EuropeanWarXX {
-   public static void main(String[] args) {
-      Country germany = new Country("Alemania", 100000000, 10000);
-      germany.buyTanks(5);
-      for (Tank tank : germany.getTanks()) {
-         System.out.println(tank);
-      }
-   }
+public class EuropeanWarXX extends JPanel {
+   
 }
