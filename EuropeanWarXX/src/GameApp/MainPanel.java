@@ -1,5 +1,6 @@
 package GameApp;
 
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
@@ -11,6 +12,9 @@ public class MainPanel extends JPanel {
    JButton loadGameButton;
    JButton exitButton;
 
+   // Creando el color del fondo de los botones creados
+   Color buttonsColor = new Color(155, 27, 27);
+
    public MainPanel () {
       // Definiendo el layout del panel
       this.setLayout(new FlowLayout());
@@ -20,6 +24,12 @@ public class MainPanel extends JPanel {
       rulesButton = new JButton("Game Rules");
       loadGameButton = new JButton("Load Game");
       exitButton = new JButton("ExitButton");
+
+      // Añadiendo el color a los botones
+      playButton.setBackground(buttonsColor);
+      rulesButton.setBackground(buttonsColor);
+      loadGameButton.setBackground(buttonsColor);
+      exitButton.setBackground(buttonsColor);
 
       // Añadiendo los botones
       this.add(playButton);
