@@ -1,7 +1,7 @@
 package GameApp;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -19,18 +19,18 @@ public class RulesPanel extends JPanel implements ActionListener {
    Color buttonsColor = new Color(155, 27, 27);
 
    public RulesPanel () {
-      this.setLayout(new FlowLayout());
+      this.setLayout(new BorderLayout());
 
       // Inicializamos el boton de voler hacia atras
       goBackButton = new JButton("Volver");
       goBackButton.setBackground(buttonsColor);
 
-      rules = new JLabel("Las reglas del juego");
+      rules = new JLabel();
 
       goBackButton.addActionListener(this);
 
+      this.add(rules, BorderLayout.CENTER);
       this.add(goBackButton);
-      this.add(rules);
    }
 
    @Override
