@@ -1,7 +1,13 @@
 package GameApp;
 
-public class GameGUI {
-   public static void main(String[] args) {
+import javax.swing.SwingUtilities;
+
+public class GameGUI implements Runnable{
+   public void run () {
       EuropeanWarXX GameInterface = new EuropeanWarXX();
+   }
+
+   public static void main(String[] args) {
+      SwingUtilities.invokeLater(new GameGUI());
    }
 }
