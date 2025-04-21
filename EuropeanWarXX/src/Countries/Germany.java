@@ -1,5 +1,7 @@
 package Countries;
 
-public class Germany {
-
+public class Germany extends Country {
+   Germany () {
+      super("Alemania");
+   }
 }

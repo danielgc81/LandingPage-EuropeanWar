@@ -53,7 +53,7 @@ public class MainPanel extends JPanel implements ActionListener {
       }
 
       // Cargando el background del juego
-      gameBackground = new ImageIcon(getClass().getResource("../background-juego.jpg")).getImage();
+      gameBackground = new ImageIcon(getClass().getResource("../background-juego.png")).getImage();
 
       // Creando el logo del juego
       ImageIcon gameLogo = new ImageIcon(getClass().getResource("../EUROPEAN WAR XX transparent.png"));
