@@ -6,7 +6,10 @@ public class ReinoUnido extends Pais {
     @Override
     public void aplicarHabilidadPasiva() {
         if (getTurnosDesdeInicio() % 3 == 0) {
-            incrementarDefensas(0.1); // Aumenta las defensas en 10% cada 3 turnos
+            if (getDefensas() < 0.6) {
+                double incremento = Math.min(0.1, 0.6 - getDefensas());
+                incrementarDefensas(incremento);
+            }
         }
     }
 }

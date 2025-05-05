@@ -4,16 +4,16 @@ public abstract class Pais {
     private String nombre;
     private int vida;
     private int misiles;
-    private double defensas; // Porcentaje de reducción de daño (0.0 a 1.0)
+    private double defensas;
     private HabilidadEspecial habilidadEspecial;
     private ImageIcon imagen;
     private int misilesAtaque;
     private int misilesDefensa;
     private int turnosDesdeInicio;
-    private double bonoAtaque; // Multiplicador temporal para el daño de los misiles
-    private int duracionBonoAtaque; // Duración restante del bono de ataque
-    private double bonoDefensa; // Incremento temporal para las defensas
-    private int duracionBonoDefensa; // Duración restante del bono de defensa
+    private double bonoAtaque;
+    private int duracionBonoAtaque;
+    private double bonoDefensa;
+    private int duracionBonoDefensa;
 
     public Pais(String nombre, int vida, int misiles, double defensas, HabilidadEspecial habilidadEspecial) {
         this.nombre = nombre;
@@ -25,9 +25,9 @@ public abstract class Pais {
         this.misilesAtaque = 0;
         this.misilesDefensa = 0;
         this.turnosDesdeInicio = 0;
-        this.bonoAtaque = 1.0; // Sin bono inicial
+        this.bonoAtaque = 1.0;
         this.duracionBonoAtaque = 0;
-        this.bonoDefensa = 0.0; // Sin bono inicial
+        this.bonoDefensa = 0.0;
         this.duracionBonoDefensa = 0;
     }
 
@@ -47,13 +47,17 @@ public abstract class Pais {
         return misiles;
     }
 
+    public void setMisiles(int misiles) {
+        this.misiles = misiles;
+    }
+
     public double getDefensas() {
         return defensas + bonoDefensa;
     }
 
     public void incrementarDefensas(double incremento) {
         this.defensas += incremento;
-        if (this.defensas > 1.0) this.defensas = 1.0; // Límite máximo de 100%
+        if (this.defensas > 1.0) this.defensas = 1.0;
         System.out.println(nombre + " aumenta sus defensas a " + (defensas * 100) + "%");
     }
 
@@ -64,18 +68,46 @@ public abstract class Pais {
 
     public void incrementarBonoAtaque(double bono) {
         this.bonoAtaque = bono;
-        this.duracionBonoAtaque = 1; // Dura 1 turno
+        this.duracionBonoAtaque = 1;
         System.out.println(nombre + " aumenta el daño de sus misiles en " + ((bono - 1) * 100) + "% durante 1 turno.");
     }
 
     public void incrementarBonoDefensa(double bono) {
         this.bonoDefensa = bono;
-        this.duracionBonoDefensa = 1; // Dura 1 turno
+        this.duracionBonoDefensa = 1;
         System.out.println(nombre + " aumenta sus defensas en " + (bono * 100) + "% durante 1 turno.");
     }
 
     public double getBonoAtaque() {
         return bonoAtaque;
+    }
+
+    public int getDuracionBonoAtaque() {
+        return duracionBonoAtaque;
+    }
+
+    public void setDuracionBonoAtaque(int duracion) {
+        this.duracionBonoAtaque = duracion;
+    }
+
+    public double getBonoDefensa() {
+        return bonoDefensa;
+    }
+
+    public void setBonoDefensa(double bono) {
+        this.bonoDefensa = bono;
+    }
+
+    public int getDuracionBonoDefensa() {
+        return duracionBonoDefensa;
+    }
+
+    public void setDuracionBonoDefensa(int duracion) {
+        this.duracionBonoDefensa = duracion;
+    }
+
+    public void setTurnosDesdeInicio(int turnos) {
+        this.turnosDesdeInicio = turnos;
     }
 
     public void reducirDuracionBonos() {

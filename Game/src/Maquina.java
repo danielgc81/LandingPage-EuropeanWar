@@ -9,16 +9,14 @@ public class Maquina {
         random = new Random();
     }
 
-    public void jugarTurno(List<Pais> paises, Combate combate, List<String> logs) {
-        // Lista de países vivos (excluyendo al atacante en cada turno)
+    public void jugarTurno(List<Pais> paises, Combate combate, List<String> logs, Partida partida) {
         List<Pais> paisesVivos;
 
         for (Pais atacante : paises) {
-            if (atacante.getVida() <= 0) {
-                continue; // Saltar si el país está muerto
+            if (atacante.getVida() <= 0 || partida.getJugador() == atacante || partida.misilesGastados.getOrDefault(atacante, false)) {
+                continue;
             }
 
-            // Crear lista de posibles objetivos (todos los países vivos excepto el atacante)
             paisesVivos = new ArrayList<>();
             for (Pais posibleObjetivo : paises) {
                 if (posibleObjetivo.getVida() > 0 && posibleObjetivo != atacante) {
@@ -27,22 +25,21 @@ public class Maquina {
             }
 
             if (paisesVivos.isEmpty()) {
-                continue; // No hay objetivos para atacar
+                continue;
             }
 
-            // Distribuir los 50 misiles del atacante
-            int totalMisiles = 50;
-            int misilesAtaque = random.nextInt(totalMisiles + 1); // Entre 0 y 50
-            int misilesDefensa = totalMisiles - misilesAtaque; // El resto para defensa
+            int misilesDefensa = random.nextInt(26);
+            int misilesAtaque = 50 - (2 * misilesDefensa);
             atacante.setMisilesAtaque(misilesAtaque);
             atacante.setMisilesDefensa(misilesDefensa);
 
-            // Seleccionar un objetivo aleatorio entre los países vivos
             Pais objetivo = paisesVivos.get(random.nextInt(paisesVivos.size()));
             int vidaObjetivoAntes = objetivo.getVida();
             combate.atacar(atacante, objetivo, misilesAtaque, misilesDefensa);
             int danoCausado = vidaObjetivoAntes - objetivo.getVida();
             logs.add(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " con " + misilesAtaque + " misiles, causando " + danoCausado + " de daño.");
+
+            partida.marcarMisilesGastados(atacante);
         }
     }
 }

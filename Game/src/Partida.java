@@ -1,58 +1,74 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Partida {
-    private List<Pais> paises;
-    private Pais jugador;
     private int ronda;
-    private List<List<String>> logsPorRonda;
+    private Pais jugador;
+    private List<Pais> paises;
+    private StringBuilder logRondaAnterior;
+    Map<Pais, Boolean> misilesGastados;
 
     public Partida() {
-        paises = new ArrayList<>();
-        ronda = 1;
-        logsPorRonda = new ArrayList<>();
-        logsPorRonda.add(new ArrayList<>());
-    }
-
-    public void agregarPais(Pais pais) {
-        paises.add(pais);
-    }
-
-    public void setJugador(Pais jugador) {
-        this.jugador = jugador;
-    }
-
-    public Pais getJugador() {
-        return jugador;
-    }
-
-    public List<Pais> getPaises() {
-        return paises;
+        this.ronda = 1;
+        this.paises = new ArrayList<>();
+        this.logRondaAnterior = new StringBuilder();
+        this.misilesGastados = new HashMap<>();
     }
 
     public int getRonda() {
         return ronda;
     }
 
-    public void siguienteRonda() {
-        ronda++;
-        logsPorRonda.add(new ArrayList<>());
-        for (Pais pais : paises) {
-            pais.reiniciarMisiles();
-            pais.incrementarTurnos();
-        }
+    public void setRonda(int ronda) {
+        this.ronda = ronda;
     }
 
-    public void agregarLog(String log) {
-        logsPorRonda.get(ronda - 1).add(log);
+    public Pais getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Pais jugador) {
+        this.jugador = jugador;
+    }
+
+    public List<Pais> getPaises() {
+        return paises;
+    }
+
+    public void agregarPais(Pais pais) {
+        paises.add(pais);
+        misilesGastados.put(pais, false);
+    }
+
+    public void marcarMisilesGastados(Pais pais) {
+        misilesGastados.put(pais, true);
+    }
+
+    public boolean todosMisilesGastados() {
+        for (Pais pais : paises) {
+            if (pais.getVida() > 0 && !misilesGastados.getOrDefault(pais, false)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void siguienteRonda() {
+        logRondaAnterior.setLength(0);
+        for (Pais pais : paises) {
+            misilesGastados.put(pais, false);
+        }
+        ronda++;
     }
 
     public String getLogRondaAnterior() {
-        if (ronda <= 1) {
-            return "";
-        }
-        List<String> eventosRondaAnterior = logsPorRonda.get(ronda - 2);
-        return String.join("\n", eventosRondaAnterior);
+        return logRondaAnterior.toString();
+    }
+
+    public void agregarLog(String log) {
+        logRondaAnterior.append(log).append("\n");
     }
 
     public boolean hayGanador() {

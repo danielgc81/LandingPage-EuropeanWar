@@ -6,7 +6,10 @@ public class Alemania extends Pais {
     @Override
     public void aplicarHabilidadPasiva() {
         if (getTurnosDesdeInicio() % 3 == 0) {
-            incrementarDefensas(0.15); // Aumenta las defensas en 15% cada 3 turnos
+            if (getDefensas() < 0.6) {
+                double incremento = Math.min(0.15, 0.6 - getDefensas());
+                incrementarDefensas(incremento);
+            }
         }
     }
 }

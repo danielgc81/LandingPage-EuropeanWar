@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class VentanaJuego extends JPanel {
+    public static Partida currentPartida;
+    public static String currentNombreJugador;
     private Partida partida;
     private String nombreJugador;
     private Combate combate;
@@ -24,7 +26,8 @@ public class VentanaJuego extends JPanel {
     private Map<String, ImageIcon> banderas;
 
     public VentanaJuego(Partida partida, String nombreJugador) {
-        System.out.println("Inicializando VentanaJuego...");
+        currentPartida = partida;
+        currentNombreJugador = nombreJugador;
         this.partida = partida;
         this.nombreJugador = nombreJugador;
         this.combate = new Combate();
@@ -32,21 +35,12 @@ public class VentanaJuego extends JPanel {
         this.misilesAtaque = 0;
         this.misilesDefensa = 0;
 
-        // Cargar fondo con depuración
         try {
             gameBackground = new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondojuego.jpg")).getImage();
-            if (gameBackground == null) {
-                System.out.println("Error: No se pudo cargar la imagen de fondo en VentanaJuego");
-            } else {
-                System.out.println("Imagen de fondo cargada correctamente en VentanaJuego");
-            }
         } catch (Exception e) {
-            System.out.println("Excepción al cargar la imagen de fondo en VentanaJuego: " + e.getMessage());
-            e.printStackTrace();
             gameBackground = null;
         }
 
-        // Cargar banderas
         banderas = new HashMap<>();
         String[] paises = {"Francia", "Espana", "Portugal", "ReinoUnido", "Polonia", "Italia", "Alemania", "Yugoslavia"};
         for (String pais : paises) {
@@ -57,9 +51,7 @@ public class VentanaJuego extends JPanel {
                 icono = new ImageIcon(imgURL);
                 Image imagenEscalada = icono.getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
                 icono = new ImageIcon(imagenEscalada);
-                System.out.println("Imagen de bandera cargada para " + pais + ": " + rutaImagen);
             } else {
-                System.out.println("Error: No se pudo cargar la imagen de bandera para " + pais + " en " + rutaImagen);
                 icono = new ImageIcon();
             }
             banderas.put(pais, icono);
@@ -67,10 +59,9 @@ public class VentanaJuego extends JPanel {
 
         setLayout(new BorderLayout());
 
-        
-        Font frakturFontLarge = new Font("Old English Text MT", Font.BOLD, 30);    
-        Font frakturFontLog = new Font("Old English Text MT", Font.BOLD, 24);      
-        Font frakturFontVida = new Font("Old English Text MT", Font.BOLD, 40);     
+        Font frakturFontLarge = new Font("Old English Text MT", Font.BOLD, 30);
+        Font frakturFontLog = new Font("Old English Text MT", Font.BOLD, 24);
+        Font frakturFontVida = new Font("Old English Text MT", Font.BOLD, 40);
 
         lblRonda = new JLabel("Ronda: " + partida.getRonda(), SwingConstants.CENTER);
         lblRonda.setForeground(Color.BLACK);
@@ -80,7 +71,6 @@ public class VentanaJuego extends JPanel {
         JPanel panelCentral = new JPanel(new GridLayout(1, 2));
         panelCentral.setOpaque(false);
 
-        
         JPanel panelJugador = new JPanel(new BorderLayout());
         panelJugador.setOpaque(false);
         JLabel lblNombreJugador = new JLabel(partida.getJugador().getNombre(), SwingConstants.CENTER);
@@ -88,20 +78,15 @@ public class VentanaJuego extends JPanel {
         lblNombreJugador.setFont(frakturFontLarge);
         panelJugador.add(lblNombreJugador, BorderLayout.NORTH);
 
-        
         JLabel lblBanderaJugador = new JLabel();
         lblBanderaJugador.setHorizontalAlignment(SwingConstants.CENTER);
         String nombreJugadorPais = partida.getJugador().getNombre();
         ImageIcon banderaJugador = banderas.get(nombreJugadorPais);
         if (banderaJugador != null) {
             lblBanderaJugador.setIcon(banderaJugador);
-            System.out.println("Bandera asignada al jugador: " + nombreJugadorPais);
-        } else {
-            System.out.println("Error: No se encontró la bandera para el jugador: " + nombreJugadorPais);
         }
         panelJugador.add(lblBanderaJugador, BorderLayout.CENTER);
 
-        
         JPanel imagenPanelJugador = new JPanel(new BorderLayout());
         imagenPanelJugador.setOpaque(false);
         JLabel lblImagenJugador = new JLabel(partida.getJugador().getImagen());
@@ -110,22 +95,21 @@ public class VentanaJuego extends JPanel {
         panelJugador.add(imagenPanelJugador, BorderLayout.SOUTH);
 
         lblVidaJugador = new JLabel("Vida: " + partida.getJugador().getVida());
-        lblVidaJugador.setForeground(Color.WHITE); 
+        lblVidaJugador.setForeground(Color.WHITE);
         lblVidaJugador.setHorizontalAlignment(SwingConstants.CENTER);
-        lblVidaJugador.setFont(frakturFontVida);  
+        lblVidaJugador.setFont(frakturFontVida);
         panelJugador.add(lblVidaJugador, BorderLayout.SOUTH);
         panelCentral.add(panelJugador);
 
-        
         JPanel panelEnemigos = new JPanel(new BorderLayout());
         panelEnemigos.setOpaque(false);
         cbEnemigos = new JComboBox<>();
         actualizarEnemigos();
         panelEnemigos.add(cbEnemigos, BorderLayout.NORTH);
         lblVidaEnemigo = new JLabel("Vida: ");
-        lblVidaEnemigo.setForeground(Color.WHITE); 
+        lblVidaEnemigo.setForeground(Color.WHITE);
         lblVidaEnemigo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblVidaEnemigo.setFont(frakturFontVida);  
+        lblVidaEnemigo.setFont(frakturFontVida);
         panelEnemigos.add(lblVidaEnemigo, BorderLayout.SOUTH);
 
         JLabel lblBanderaEnemigo = new JLabel();
@@ -135,9 +119,6 @@ public class VentanaJuego extends JPanel {
             ImageIcon banderaEnemigo = banderas.get(primerEnemigo);
             if (banderaEnemigo != null) {
                 lblBanderaEnemigo.setIcon(banderaEnemigo);
-                System.out.println("Bandera asignada al enemigo inicial: " + primerEnemigo);
-            } else {
-                System.out.println("Error: No se encontró la bandera para el enemigo inicial: " + primerEnemigo);
             }
         }
         panelEnemigos.add(lblBanderaEnemigo, BorderLayout.CENTER);
@@ -149,9 +130,6 @@ public class VentanaJuego extends JPanel {
                 ImageIcon banderaEnemigo = banderas.get(enemigoSeleccionado);
                 if (banderaEnemigo != null) {
                     lblBanderaEnemigo.setIcon(banderaEnemigo);
-                    System.out.println("Bandera actualizada para el enemigo: " + enemigoSeleccionado);
-                } else {
-                    System.out.println("Error: No se encontró la bandera para el enemigo: " + enemigoSeleccionado);
                 }
             }
         });
@@ -169,21 +147,20 @@ public class VentanaJuego extends JPanel {
         btnDefensa.setForeground(Color.WHITE);
         btnDefensa.setPreferredSize(new Dimension(150, 50));
         btnDefensa.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(this, "Misiles para defensa (máx. " + (50 - misilesAtaque) + "):");
+            String input = JOptionPane.showInputDialog(this, "Misiles para defensa (máx. 25, 1 misil = 2 puntos):");
             try {
                 int misiles = Integer.parseInt(input);
-                if (misiles >= 0 && misiles + misilesAtaque <= 50) {
+                if (misiles >= 0 && misiles <= 25) {
                     misilesDefensa = misiles;
+                    misilesAtaque = 50 - (2 * misilesDefensa);
                     btnDefensa.setText("Defensa (" + misilesDefensa + ")");
-                    btnAtaque.setEnabled(true);
-                    if (misilesAtaque + misilesDefensa == 50) {
-                        realizarAtaque();
-                    }
+                    btnAtaque.setText("Ataque (" + misilesAtaque + ")");
+                    realizarAtaque();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Ingresa un número válido (máx. " + (50 - misilesAtaque) + ").");
+                    JOptionPane.showMessageDialog(this, "Pon un número válido (0 a 25).");
                 }
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Ingresa un número válido.");
+                JOptionPane.showMessageDialog(this, "Pon un número válido.");
             }
         });
 
@@ -192,21 +169,20 @@ public class VentanaJuego extends JPanel {
         btnAtaque.setForeground(Color.WHITE);
         btnAtaque.setPreferredSize(new Dimension(150, 50));
         btnAtaque.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(this, "Misiles para ataque (máx. " + (50 - misilesDefensa) + "):");
+            String input = JOptionPane.showInputDialog(this, "Misiles para ataque (máx. 50, 1 misil = 1 punto):");
             try {
                 int misiles = Integer.parseInt(input);
-                if (misiles >= 0 && misiles + misilesDefensa <= 50) {
+                if (misiles >= 0 && misiles <= 50) {
                     misilesAtaque = misiles;
+                    misilesDefensa = (50 - misilesAtaque) / 2;
                     btnAtaque.setText("Ataque (" + misilesAtaque + ")");
-                    btnDefensa.setEnabled(true);
-                    if (misilesAtaque + misilesDefensa == 50) {
-                        realizarAtaque();
-                    }
+                    btnDefensa.setText("Defensa (" + misilesDefensa + ")");
+                    realizarAtaque();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Ingresa un número válido (máx. " + (50 - misilesDefensa) + ").");
+                    JOptionPane.showMessageDialog(this, "Pon un número válido (0 a 50).");
                 }
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Ingresa un número válido.");
+                JOptionPane.showMessageDialog(this, "Pon un número válido.");
             }
         });
 
@@ -241,8 +217,6 @@ public class VentanaJuego extends JPanel {
         panelInferior.add(new JScrollPane(txtLog), BorderLayout.CENTER);
 
         add(panelInferior, BorderLayout.SOUTH);
-
-        System.out.println("VentanaJuego inicializada correctamente");
     }
 
     private void actualizarEnemigos() {
@@ -284,11 +258,22 @@ public class VentanaJuego extends JPanel {
         combate.atacar(partida.getJugador(), enemigo, misilesAtaque, misilesDefensa);
         int danoCausado = vidaEnemigoAntes - enemigo.getVida();
         partida.agregarLog(partida.getJugador().getNombre() + " atacó a " + enemigo.getNombre() + " con " + misilesAtaque + " misiles, causando " + danoCausado + " de daño.");
+        partida.marcarMisilesGastados(partida.getJugador());
+
+        if (partida.getJugador().getVida() <= 0) {
+            mostrarPerdiste();
+            return;
+        }
 
         List<String> logsMaquina = new ArrayList<>();
-        maquina.jugarTurno(partida.getPaises(), combate, logsMaquina);
+        maquina.jugarTurno(partida.getPaises(), combate, logsMaquina, partida);
         for (String log : logsMaquina) {
             partida.agregarLog(log);
+        }
+
+        if (partida.getJugador().getVida() <= 0) {
+            mostrarPerdiste();
+            return;
         }
 
         for (Pais pais : partida.getPaises()) {
@@ -297,7 +282,6 @@ public class VentanaJuego extends JPanel {
             }
         }
 
-        
         for (Pais pais : partida.getPaises()) {
             if (pais.getVida() > 0) {
                 pais.reducirDuracionBonos();
@@ -309,18 +293,59 @@ public class VentanaJuego extends JPanel {
         actualizarVidaEnemigo();
         txtLog.setText(partida.getLogRondaAnterior());
 
-        partida.siguienteRonda();
-        lblRonda.setText("Ronda: " + partida.getRonda());
+        if (partida.hayGanador()) {
+            mostrarGanador();
+            return;
+        }
+
+        if (partida.todosMisilesGastados()) {
+            partida.siguienteRonda();
+            lblRonda.setText("Ronda: " + partida.getRonda());
+        }
+
         misilesAtaque = 0;
         misilesDefensa = 0;
         btnAtaque.setText("Ataque");
         btnDefensa.setText("Defensa");
         btnAtaque.setEnabled(true);
         btnDefensa.setEnabled(true);
+    }
 
-        if (partida.hayGanador()) {
-            mostrarGanador();
-        }
+    private void mostrarPerdiste() {
+        JFrame ventanaPerdiste = new JFrame("¡Perdiste!");
+        ventanaPerdiste.setSize(400, 300);
+        ventanaPerdiste.setLocationRelativeTo(null);
+
+        JFrame actualFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        actualFrame.setVisible(false);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel lblTexto = new JLabel("¡Has perdido, " + nombreJugador + "!", SwingConstants.CENTER);
+        panel.add(lblTexto, BorderLayout.NORTH);
+
+        JLabel lblBandera = new JLabel();
+        lblBandera.setHorizontalAlignment(SwingConstants.CENTER);
+        lblBandera.setIcon(banderas.get(partida.getJugador().getNombre()));
+        panel.add(lblBandera, BorderLayout.CENTER);
+
+        ventanaPerdiste.add(panel);
+        ventanaPerdiste.setVisible(true);
+
+        Timer timer = new Timer(20000, e -> {
+            int opcion = JOptionPane.showConfirmDialog(ventanaPerdiste, "¿Quieres jugar una nueva partida?", "Fin del Juego", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                ventanaPerdiste.dispose();
+                actualFrame.getContentPane().removeAll();
+                actualFrame.add(new VentanaPrincipal());
+                actualFrame.revalidate();
+                actualFrame.repaint();
+                actualFrame.setVisible(true);
+            } else {
+                System.exit(0);
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     private void mostrarGanador() {
