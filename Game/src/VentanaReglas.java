@@ -39,7 +39,7 @@ public class VentanaReglas extends JPanel {
 
                 frame.getContentPane().removeAll();
                 frame.add(new VentanaPrincipal().getContentPane());
-              
+
                 frame.revalidate();
                 frame.repaint();
             }

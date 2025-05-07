@@ -36,13 +36,15 @@ public class VentanaJuego extends JPanel {
         this.misilesDefensa = 0;
 
         try {
-            gameBackground = new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondojuego.jpg")).getImage();
+            gameBackground = new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondojuego.jpg"))
+                    .getImage();
         } catch (Exception e) {
             gameBackground = null;
         }
 
         banderas = new HashMap<>();
-        String[] paises = {"Francia", "Espana", "Portugal", "ReinoUnido", "Polonia", "Italia", "Alemania", "Yugoslavia"};
+        String[] paises = { "Francia", "Espana", "Portugal", "ReinoUnido", "Polonia", "Italia", "Alemania",
+                "Yugoslavia" };
         for (String pais : paises) {
             String rutaImagen = "Recursos/" + pais.toLowerCase() + ".png";
             java.net.URL imgURL = getClass().getClassLoader().getResource(rutaImagen);
@@ -193,14 +195,17 @@ public class VentanaJuego extends JPanel {
                 Pais enemigo = getEnemigoSeleccionado();
                 if (enemigo != null) {
                     partida.getJugador().getHabilidadEspecial().activar(partida.getJugador(), enemigo);
-                    JOptionPane.showMessageDialog(this, "¡Habilidad especial de " + partida.getJugador().getNombre() + " activada contra " + enemigo.getNombre() + "!");
-                    partida.agregarLog(partida.getJugador().getNombre() + " usó su habilidad especial contra " + enemigo.getNombre());
+                    JOptionPane.showMessageDialog(this, "¡Habilidad especial de " + partida.getJugador().getNombre()
+                            + " activada contra " + enemigo.getNombre() + "!");
+                    partida.agregarLog(partida.getJugador().getNombre() + " usó su habilidad especial contra "
+                            + enemigo.getNombre());
                     actualizarVidaEnemigo();
                 } else {
                     JOptionPane.showMessageDialog(this, "Selecciona un enemigo.");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Habilidad en cooldown. Faltan " + partida.getJugador().getHabilidadEspecial().getCooldown() + " rondas.");
+                JOptionPane.showMessageDialog(this, "Habilidad en cooldown. Faltan "
+                        + partida.getJugador().getHabilidadEspecial().getCooldown() + " rondas.");
             }
         });
 
@@ -257,7 +262,8 @@ public class VentanaJuego extends JPanel {
         int vidaEnemigoAntes = enemigo.getVida();
         combate.atacar(partida.getJugador(), enemigo, misilesAtaque, misilesDefensa);
         int danoCausado = vidaEnemigoAntes - enemigo.getVida();
-        partida.agregarLog(partida.getJugador().getNombre() + " atacó a " + enemigo.getNombre() + " con " + misilesAtaque + " misiles, causando " + danoCausado + " de daño.");
+        partida.agregarLog(partida.getJugador().getNombre() + " atacó a " + enemigo.getNombre() + " con "
+                + misilesAtaque + " misiles, causando " + danoCausado + " de daño.");
         partida.marcarMisilesGastados(partida.getJugador());
 
         if (partida.getJugador().getVida() <= 0) {
@@ -332,7 +338,8 @@ public class VentanaJuego extends JPanel {
         ventanaPerdiste.setVisible(true);
 
         Timer timer = new Timer(20000, e -> {
-            int opcion = JOptionPane.showConfirmDialog(ventanaPerdiste, "¿Quieres jugar una nueva partida?", "Fin del Juego", JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(ventanaPerdiste, "¿Quieres jugar una nueva partida?",
+                    "Fin del Juego", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 ventanaPerdiste.dispose();
                 actualFrame.getContentPane().removeAll();
@@ -358,7 +365,8 @@ public class VentanaJuego extends JPanel {
         actualFrame.setVisible(false);
 
         JPanel panel = new JPanel(new BorderLayout());
-        String textoGanador = ganador == partida.getJugador() ? ganador.getNombre() + " (" + nombreJugador + ")" : ganador.getNombre();
+        String textoGanador = ganador == partida.getJugador() ? ganador.getNombre() + " (" + nombreJugador + ")"
+                : ganador.getNombre();
         JLabel lblTexto = new JLabel("Ganador: " + textoGanador, SwingConstants.CENTER);
         panel.add(lblTexto, BorderLayout.NORTH);
 
@@ -375,7 +383,8 @@ public class VentanaJuego extends JPanel {
         ventanaGanador.setVisible(true);
 
         Timer timer = new Timer(20000, e -> {
-            int opcion = JOptionPane.showConfirmDialog(ventanaGanador, "¿Quieres jugar una nueva partida?", "Fin del Juego", JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(ventanaGanador, "¿Quieres jugar una nueva partida?",
+                    "Fin del Juego", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 ventanaGanador.dispose();
                 actualFrame.getContentPane().removeAll();

@@ -13,7 +13,8 @@ public class Maquina {
         List<Pais> paisesVivos;
 
         for (Pais atacante : paises) {
-            if (atacante.getVida() <= 0 || partida.getJugador() == atacante || partida.misilesGastados.getOrDefault(atacante, false)) {
+            if (atacante.getVida() <= 0 || partida.getJugador() == atacante
+                    || partida.misilesGastados.getOrDefault(atacante, false)) {
                 continue;
             }
 
@@ -37,7 +38,8 @@ public class Maquina {
             int vidaObjetivoAntes = objetivo.getVida();
             combate.atacar(atacante, objetivo, misilesAtaque, misilesDefensa);
             int danoCausado = vidaObjetivoAntes - objetivo.getVida();
-            logs.add(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " con " + misilesAtaque + " misiles, causando " + danoCausado + " de daño.");
+            logs.add(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " con " + misilesAtaque
+                    + " misiles, causando " + danoCausado + " de daño.");
 
             partida.marcarMisilesGastados(atacante);
         }

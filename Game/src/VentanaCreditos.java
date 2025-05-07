@@ -8,8 +8,9 @@ public class VentanaCreditos extends JPanel {
         setLayout(new BorderLayout());
 
         JTextArea txtCreditos = new JTextArea();
-       
-txtCreditos.setText("Desarrollado por:\n- Yago Fernández Loza y Daniel Garrido Cortés\n -Información de contacto:yagofl02@educastur.es || Danielgc81@educastur.es  \n- Link Github: https://github.com/danielgc81/LandingPage-EuropeanWar\n");
+
+        txtCreditos.setText(
+                "Desarrollado por:\n- Yago Fernández Loza y Daniel Garrido Cortés\n -Información de contacto:yagofl02@educastur.es || Danielgc81@educastur.es  \n- Link Github: https://github.com/danielgc81/LandingPage-EuropeanWar\n");
         txtCreditos.setFont(new Font("Arial", Font.BOLD, 30));
         txtCreditos.setForeground(Color.BLACK);
         txtCreditos.setOpaque(false);
@@ -23,11 +24,11 @@ txtCreditos.setText("Desarrollado por:\n- Yago Fernández Loza y Daniel Garrido 
         btnVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               
+
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(VentanaCreditos.this);
 
                 frame.getContentPane().removeAll();
-                
+
                 frame.add(new VentanaPrincipal().getContentPane());
 
                 frame.revalidate();

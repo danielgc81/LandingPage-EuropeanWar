@@ -12,12 +12,13 @@ public class VentanaSeleccionPais extends JPanel {
     private JTextArea txtHabilidades;
     private Map<String, ImageIcon> banderas;
     private Map<String, String> descripcionesHabilidades;
-    private Image backgroundImage; 
+    private Image backgroundImage;
 
     public VentanaSeleccionPais() {
-        
+
         try {
-            backgroundImage = new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondoseleccion.jpg")).getImage();
+            backgroundImage = new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondoseleccion.jpg"))
+                    .getImage();
             if (backgroundImage == null) {
                 System.out.println("Error: No se pudo cargar la imagen de fondo 'fondoseleccion.jpg'");
             } else {
@@ -34,7 +35,8 @@ public class VentanaSeleccionPais extends JPanel {
         // Mapa para asociar países con las rutas de sus banderas
         banderas = new HashMap<>();
         descripcionesHabilidades = new HashMap<>();
-        String[] paises = {"Francia", "Espana", "Portugal", "ReinoUnido", "Polonia", "Italia", "Alemania", "Yugoslavia"};
+        String[] paises = { "Francia", "Espana", "Portugal", "ReinoUnido", "Polonia", "Italia", "Alemania",
+                "Yugoslavia" };
         for (String pais : paises) {
             String rutaImagen = "Recursos/" + pais.toLowerCase() + ".png";
             java.net.URL imgURL = getClass().getClassLoader().getResource(rutaImagen);
@@ -50,39 +52,52 @@ public class VentanaSeleccionPais extends JPanel {
             }
             banderas.put(pais, icono);
 
-       
             switch (pais) {
                 case "Francia":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Diplomacia Eficaz\nAumenta las defensas en 20% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Legión Extranjera\nCada 3 turnos, aumenta las defensas en 5%.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Diplomacia Eficaz\nAumenta las defensas en 20% durante 1 turno.\n\n" +
+                                    "Habilidad Pasiva: Legión Extranjera\nCada 3 turnos, aumenta las defensas en 5%.");
                     break;
                 case "Espana":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Defensa Ibérica\nAumenta las defensas en 30% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Reconquista\nCada 5 turnos, cura 10 de vida.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Defensa Ibérica\nAumenta las defensas en 30% durante 1 turno.\n\n" +
+                                    "Habilidad Pasiva: Reconquista\nCada 5 turnos, cura 10 de vida.");
                     break;
                 case "Portugal":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Alianza Atlántica\nAumenta el daño de los misiles en 50% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Navegación Avanzada\nCada 3 turnos, aumenta el daño de los misiles en 10%.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Alianza Atlántica\nAumenta el daño de los misiles en 50% durante 1 turno.\n\n"
+                                    +
+                                    "Habilidad Pasiva: Navegación Avanzada\nCada 3 turnos, aumenta el daño de los misiles en 10%.");
                     break;
                 case "ReinoUnido":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Dominio de los Mares\nAumenta el daño de los misiles en 40% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Radar Británico\nCada 3 turnos, aumenta las defensas en 10%.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Dominio de los Mares\nAumenta el daño de los misiles en 40% durante 1 turno.\n\n"
+                                    +
+                                    "Habilidad Pasiva: Radar Británico\nCada 3 turnos, aumenta las defensas en 10%.");
                     break;
                 case "Polonia":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Resistencia Estoica\nAumenta las defensas en 25% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Solidaridad Nacional\nCada 5 turnos, cura 15 de vida.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Resistencia Estoica\nAumenta las defensas en 25% durante 1 turno.\n\n"
+                                    +
+                                    "Habilidad Pasiva: Solidaridad Nacional\nCada 5 turnos, cura 15 de vida.");
                     break;
                 case "Italia":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Influencia Fascista\nAumenta el daño de los misiles en 30% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Industria Bélica\nCada 3 turnos, aumenta el daño de los misiles en 15%.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Influencia Fascista\nAumenta el daño de los misiles en 30% durante 1 turno.\n\n"
+                                    +
+                                    "Habilidad Pasiva: Industria Bélica\nCada 3 turnos, aumenta el daño de los misiles en 15%.");
                     break;
                 case "Alemania":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Blitzkrieg\nAumenta el daño de los misiles en 50% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Disciplina Militar\nCada 3 turnos, aumenta las defensas en 15%.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Blitzkrieg\nAumenta el daño de los misiles en 50% durante 1 turno.\n\n"
+                                    +
+                                    "Habilidad Pasiva: Disciplina Militar\nCada 3 turnos, aumenta las defensas en 15%.");
                     break;
                 case "Yugoslavia":
-                    descripcionesHabilidades.put(pais, "Habilidad Especial: Resistencia Partisana\nAumenta las defensas en 40% durante 1 turno.\n\n" +
-                                                      "Habilidad Pasiva: Guerrilla Organizada\nCada 5 turnos, cura 5 de vida.");
+                    descripcionesHabilidades.put(pais,
+                            "Habilidad Especial: Resistencia Partisana\nAumenta las defensas en 40% durante 1 turno.\n\n"
+                                    +
+                                    "Habilidad Pasiva: Guerrilla Organizada\nCada 5 turnos, cura 5 de vida.");
                     break;
             }
         }

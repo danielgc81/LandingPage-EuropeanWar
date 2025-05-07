@@ -25,7 +25,8 @@ public class VentanaPrincipal extends JFrame {
                 if (VentanaJuego.currentPartida != null && VentanaJuego.currentNombreJugador != null) {
                     try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
                         String sqlPartida = "INSERT INTO partidas (nombre_jugador, ronda, pais_jugador) VALUES (?, ?, ?)";
-                        PreparedStatement stmtPartida = conn.prepareStatement(sqlPartida, PreparedStatement.RETURN_GENERATED_KEYS);
+                        PreparedStatement stmtPartida = conn.prepareStatement(sqlPartida,
+                                PreparedStatement.RETURN_GENERATED_KEYS);
                         stmtPartida.setString(1, VentanaJuego.currentNombreJugador);
                         stmtPartida.setInt(2, VentanaJuego.currentPartida.getRonda());
                         stmtPartida.setString(3, VentanaJuego.currentPartida.getJugador().getNombre());
@@ -37,9 +38,11 @@ public class VentanaPrincipal extends JFrame {
                             partidaId = rs.getInt(1);
                         }
 
-                        String sqlPais = "INSERT INTO paises_partida (partida_id, nombre_pais, vida, misiles, defensas, cooldown_habilidad, " +
-                                        "bono_ataque, duracion_bono_ataque, bono_defensa, duracion_bono_defensa, turnos_desde_inicio) " +
-                                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        String sqlPais = "INSERT INTO paises_partida (partida_id, nombre_pais, vida, misiles, defensas, cooldown_habilidad, "
+                                +
+                                "bono_ataque, duracion_bono_ataque, bono_defensa, duracion_bono_defensa, turnos_desde_inicio) "
+                                +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement stmtPais = conn.prepareStatement(sqlPais);
                         for (Pais pais : VentanaJuego.currentPartida.getPaises()) {
                             stmtPais.setInt(1, partidaId);
@@ -57,7 +60,8 @@ public class VentanaPrincipal extends JFrame {
                         }
                         JOptionPane.showMessageDialog(VentanaPrincipal.this, "Partida guardada exitosamente.");
                     } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al guardar la partida: " + e.getMessage());
+                        JOptionPane.showMessageDialog(VentanaPrincipal.this,
+                                "Error al guardar la partida: " + e.getMessage());
                     }
                 }
                 System.exit(0);
@@ -106,7 +110,8 @@ public class VentanaPrincipal extends JFrame {
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         partidas.add("ID: " + rs.getInt("id") + " - Jugador: " + rs.getString("nombre_jugador") +
-                                    " - País: " + rs.getString("pais_jugador") + " - Guardado: " + rs.getTimestamp("fecha_guardado"));
+                                " - País: " + rs.getString("pais_jugador") + " - Guardado: "
+                                + rs.getTimestamp("fecha_guardado"));
                     }
 
                     if (partidas.isEmpty()) {
@@ -115,14 +120,13 @@ public class VentanaPrincipal extends JFrame {
                     }
 
                     String seleccion = (String) JOptionPane.showInputDialog(
-                        VentanaPrincipal.this,
-                        "Selecciona una partida para cargar:",
-                        "Cargar Partida",
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        partidas.toArray(),
-                        partidas.get(0)
-                    );
+                            VentanaPrincipal.this,
+                            "Selecciona una partida para cargar:",
+                            "Cargar Partida",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            partidas.toArray(),
+                            partidas.get(0));
 
                     if (seleccion != null) {
                         int partidaId = Integer.parseInt(seleccion.split(" - ")[0].replace("ID: ", ""));
@@ -141,8 +145,9 @@ public class VentanaPrincipal extends JFrame {
                         String paisJugador = rsPartida.getString("pais_jugador");
 
                         String sqlPaises = "SELECT nombre_pais, vida, misiles, defensas, cooldown_habilidad, " +
-                                          "bono_ataque, duracion_bono_ataque, bono_defensa, duracion_bono_defensa, turnos_desde_inicio " +
-                                          "FROM paises_partida WHERE partida_id = ?";
+                                "bono_ataque, duracion_bono_ataque, bono_defensa, duracion_bono_defensa, turnos_desde_inicio "
+                                +
+                                "FROM paises_partida WHERE partida_id = ?";
                         PreparedStatement stmtPaises = conn.prepareStatement(sqlPaises);
                         stmtPaises.setInt(1, partidaId);
                         ResultSet rsPaises = stmtPaises.executeQuery();
@@ -152,14 +157,30 @@ public class VentanaPrincipal extends JFrame {
                             String nombrePais = rsPaises.getString("nombre_pais");
                             Pais pais = null;
                             switch (nombrePais) {
-                                case "Francia": pais = new Francia("Francia", 120, 60, 0.2); break;
-                                case "Espana": pais = new Espana("Espana", 110, 50, 0.35); break;
-                                case "Portugal": pais = new Portugal("Portugal", 100, 55, 0.25); break;
-                                case "ReinoUnido": pais = new ReinoUnido("ReinoUnido", 130, 70, 0.15); break;
-                                case "Polonia": pais = new Polonia("Polonia", 140, 40, 0.3); break;
-                                case "Italia": pais = new Italia("Italia", 100, 65, 0.1); break;
-                                case "Alemania": pais = new Alemania("Alemania", 150, 80, 0.05); break;
-                                case "Yugoslavia": pais = new Yugoslavia("Yugoslavia", 90, 45, 0.4); break;
+                                case "Francia":
+                                    pais = new Francia("Francia", 120, 60, 0.2);
+                                    break;
+                                case "Espana":
+                                    pais = new Espana("Espana", 110, 50, 0.35);
+                                    break;
+                                case "Portugal":
+                                    pais = new Portugal("Portugal", 100, 55, 0.25);
+                                    break;
+                                case "ReinoUnido":
+                                    pais = new ReinoUnido("ReinoUnido", 130, 70, 0.15);
+                                    break;
+                                case "Polonia":
+                                    pais = new Polonia("Polonia", 140, 40, 0.3);
+                                    break;
+                                case "Italia":
+                                    pais = new Italia("Italia", 100, 65, 0.1);
+                                    break;
+                                case "Alemania":
+                                    pais = new Alemania("Alemania", 150, 80, 0.05);
+                                    break;
+                                case "Yugoslavia":
+                                    pais = new Yugoslavia("Yugoslavia", 90, 45, 0.4);
+                                    break;
                             }
                             pais.setVida(rsPaises.getInt("vida"));
                             pais.setMisiles(rsPaises.getInt("misiles"));
@@ -188,7 +209,8 @@ public class VentanaPrincipal extends JFrame {
                         repaint();
                     }
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al cargar partidas: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(VentanaPrincipal.this,
+                            "Error al cargar partidas: " + ex.getMessage());
                 }
             }
         });

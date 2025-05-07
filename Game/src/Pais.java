@@ -57,7 +57,8 @@ public abstract class Pais {
 
     public void incrementarDefensas(double incremento) {
         this.defensas += incremento;
-        if (this.defensas > 1.0) this.defensas = 1.0;
+        if (this.defensas > 1.0)
+            this.defensas = 1.0;
         System.out.println(nombre + " aumenta sus defensas a " + (defensas * 100) + "%");
     }
 
@@ -130,8 +131,10 @@ public abstract class Pais {
     public void decrementarVida(int cantidad) {
         int danoReducido = (int) (cantidad * (1 - getDefensas()));
         vida -= danoReducido;
-        if (vida < 0) vida = 0;
-        System.out.println(nombre + " pierde " + danoReducido + " vidas (después de defensas). Vidas actuales: " + vida);
+        if (vida < 0)
+            vida = 0;
+        System.out
+                .println(nombre + " pierde " + danoReducido + " vidas (después de defensas). Vidas actuales: " + vida);
     }
 
     public HabilidadEspecial getHabilidadEspecial() {
