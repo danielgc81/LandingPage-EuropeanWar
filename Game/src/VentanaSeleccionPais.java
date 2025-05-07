@@ -15,7 +15,7 @@ public class VentanaSeleccionPais extends JPanel {
     private Image backgroundImage; 
 
     public VentanaSeleccionPais() {
-        // Cargar la imagen de fondo
+        
         try {
             backgroundImage = new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondoseleccion.jpg")).getImage();
             if (backgroundImage == null) {
